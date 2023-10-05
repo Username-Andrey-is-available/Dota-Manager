@@ -41,9 +41,8 @@ public class PlayerService {
 
 
     public Player getPlayerByNickname(String nickname) {
-        Player player = playerRepository.findByNickname(nickname);
 
-        return player;
+        return playerRepository.findByNickname(nickname);
     }
 
     public void updatePlayer(Player player) {

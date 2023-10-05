@@ -17,9 +17,6 @@ public class Team {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "team", cascade = CascadeType.ALL)
     private List<Player> players;
 
-    /*@OneToMany(mappedBy = "team")
-    private List<Sponsor> sponsors;*/
-
     private int fans;
     private int teamWl;
     private int teamSkill;
