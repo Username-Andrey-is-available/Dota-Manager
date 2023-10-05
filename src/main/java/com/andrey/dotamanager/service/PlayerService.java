@@ -18,7 +18,6 @@ public class PlayerService {
     }
 
     public List<Player> getPlayersByTeamId(Long teamId) {
-        // Используем метод репозитория для получения списка игроков по идентификатору команды
         return playerRepository.findByTeamId(teamId);
     }
 

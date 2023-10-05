@@ -38,7 +38,7 @@ public class PlayerController {
         playerService.savePlayer(player);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public void updatePlayer(@PathVariable Long id, @RequestBody Player player) {
         Player existingPlayer = playerService.getPlayerById(id);
         if (existingPlayer != null) {
@@ -56,7 +56,7 @@ public class PlayerController {
         return playerService.getPlayersByTeamId(teamId);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deletePlayer(@PathVariable Long id) {
         playerService.deletePlayer(id);
     }

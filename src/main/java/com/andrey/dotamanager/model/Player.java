@@ -1,6 +1,8 @@
 package com.andrey.dotamanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
 public class Player {
@@ -9,6 +11,7 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Getter
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -16,10 +19,6 @@ public class Player {
 
     }
 
-
-    public Role getRole() {
-        return role;
-    }
 
     public void setRole(Role role) {
         this.role = role;
@@ -53,6 +52,7 @@ public class Player {
     }
 
     private String name;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;

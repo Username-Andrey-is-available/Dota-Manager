@@ -8,7 +8,6 @@ import java.util.List;
 
 @Repository
 public interface PlayerRepository extends JpaRepository<Player, Long> {
-    // Дополнительные методы для запросов к данным игроков
     List<Player> findByTeamId(Long teamId);
 
     Player findByNickname(String nickname);

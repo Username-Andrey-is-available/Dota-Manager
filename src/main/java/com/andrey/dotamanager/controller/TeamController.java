@@ -22,12 +22,16 @@ public class TeamController {
         this.playerService = playerService;
     }
 
-    @GetMapping("/players/by-team")
+    @GetMapping(value = "/players/by-team", produces = "application/json")
     public List<Player> getPlayersByTeamId(@RequestParam Long teamId) {
         return playerService.getPlayersByTeamId(teamId);
     }
 
-    @DeleteMapping("/{id}")
+
+    @GetMapping(value = "/all")
+    public List<Team> getAllTeams(){return teamService.getAllTeams();}
+
+    @DeleteMapping("/delete/{id}")
     public void deleteTeam(@PathVariable Long id) {
         Team team = teamService.getTeamById(id);
         if (team != null) {
