@@ -73,7 +73,7 @@ public class MatchController {
         } else if (team2wins > team1wins) {
             winningTeam = team2;
         } else {
-            return "тыдыдыыым надо че-то фиксить" + resultMessage.toString();
+            return "тыдыдыыым надо че-то фиксить" + resultMessage;
         }
 
         Match match = new Match();
@@ -82,7 +82,7 @@ public class MatchController {
         match.setWinner(winningTeam);
         matchRepository.save(match);
 
-        return "Победила команда " + winningTeam.getName() + " по количеству выигранных карт " + team1wins + ":" + team2wins + "\n\n" + resultMessage.toString();
+        return "Победила команда " + winningTeam.getName() + " по количеству выигранных карт " + team1wins + ":" + team2wins + "\n\n" + resultMessage;
     }
 
 }

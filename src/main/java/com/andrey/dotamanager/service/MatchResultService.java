@@ -193,10 +193,10 @@ public class MatchResultService {
         this.coresMicroActions = 0.0;
         this.perfectExecution = 0.0;
         this.randomNonsense = 0.0;
-        return calculateEarlyGame(players) * 1.3 + calculateMidGame(players) * 1.5 + calculateLateGame(players) +
+        return calculateEarlyGame(players) * 1.3 + calculateMidGame(players) * 1.5 + calculateLateGame(players) * 1.2 +
                 calculateTowerDef(players) + calculateTowerPush(players) + calculateRoshan(players) +
-                team.calculateTeamWork(players) * 10 + team.calculateStressResistance(players) +
-                calculatePickStage(players,calculateChanceToOverDraft(),calculateChanceToPickBetter()) * 10 +
+                team.calculateTeamWork(players) * 5 + team.calculateStressResistance(players) +
+                calculatePickStage(players,calculateChanceToOverDraft(),calculateChanceToPickBetter()) * 7 +
                 calculateRandomNonsense(players);
     }
 }
