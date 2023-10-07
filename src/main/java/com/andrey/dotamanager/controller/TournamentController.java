@@ -1,7 +1,6 @@
 package com.andrey.dotamanager.controller;
 
 import com.andrey.dotamanager.model.Tournament;
-import com.andrey.dotamanager.service.TeamService;
 import com.andrey.dotamanager.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +11,10 @@ import java.util.List;
 @RequestMapping("/tournaments")
 public class TournamentController {
     private final TournamentService tournamentService;
-    private final TeamService teamService;
 
     @Autowired
-    public TournamentController(TournamentService tournamentService, TeamService teamService) {
+    public TournamentController(TournamentService tournamentService) {
         this.tournamentService = tournamentService;
-        this.teamService = teamService;
     }
 
     // Создание нового турнира
@@ -59,5 +56,12 @@ public class TournamentController {
         return null;
     }
 
+    @DeleteMapping("/{tournamentId}/delete-team/{teamId}")
+    public void removeTeamFromTournament(
+            @PathVariable Long tournamentId,
+            @PathVariable Long teamId
+    ) {
+        tournamentService.removeTeamFromTournament(tournamentId, teamId);
+    }
 
 }

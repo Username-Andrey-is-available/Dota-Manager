@@ -9,8 +9,5 @@ import java.util.Optional;
 @Repository
 public interface MatchRepository extends JpaRepository<Match, Long> {
 
-    // Другие методы репозитория, если необходимо
-
-    // Пример метода для поиска матча по id команд
     Optional<Match> findMatchByTeam1IdAndTeam2Id(Long team1Id, Long team2Id);
 }

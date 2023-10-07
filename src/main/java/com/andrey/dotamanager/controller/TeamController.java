@@ -33,14 +33,7 @@ public class TeamController {
 
     @DeleteMapping("/delete/{id}")
     public void deleteTeam(@PathVariable Long id) {
-        Team team = teamService.getTeamById(id);
-        if (team != null) {
-            List<Player> players = team.getPlayers();
-            for (Player player : players) {
-                player.setTeam(null);
-            }
-            teamService.deleteTeam(id);
-        }
+        teamService.deleteTeam(id);
     }
 
 }
