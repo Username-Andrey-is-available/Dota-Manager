@@ -105,7 +105,7 @@ public class MapResultService {
                 ((mider != null ? mider.getMicroSkill() : 0.1) *
                         (support != null ? support.getLaningSkill() : 0.1)) *
                 calculatePickStage(players, calculateChanceToOverDraft(), calculateChanceToPickBetter()) *
-                Math.max(calculateRunes(), 0.5);
+                Math.max(calculateRunes(), 0.85);
     }
 
     private double calculateEasylane(List<Player> players) {
@@ -126,7 +126,7 @@ public class MapResultService {
     }
 
     private double calculateMidGame(List<Player> players) {
-        double midGame = Math.max(calculateRunes(), 0.75);
+        double midGame = Math.max(calculateRunes(), 0.85);
         for (Player player : players) {
             midGame *= player.getWardingSkill() * player.getTeamfightSkill() *
                     player.getFarmSkill() * player.getMicroSkill() * player.getMacroSkill();
@@ -135,7 +135,7 @@ public class MapResultService {
     }
 
     private double calculateLateGame(List<Player> players) {
-        double lateGame = Math.max(calculateRunes(), 0.85);
+        double lateGame = Math.max(calculateRunes(), 0.90);
         for (Player player : players) {
             lateGame *= player.getFarmSkill() * player.getMacroSkill() * player.getTeamfightSkill() *
                     player.getWardingSkill() * player.getMicroSkill() * (1 - player.getGreed());
@@ -144,11 +144,11 @@ public class MapResultService {
     }
 
     private double calculateRunes() {
-        return 0.5 + (1 - 0.5) * RandomGenerator.getRandomDouble();
+        return 0.8 + (1 - 0.8) * RandomGenerator.getRandomDouble();
     }
 
     private double calculateTowerDef(List<Player> players) {
-        double towerDef = 0;
+        double towerDef = 1;
         for (Player player : players) {
             if (player.getRole() != Role.CARRY) {
                 towerDef *= player.getTeamfightSkill() * player.getWardingSkill() *
@@ -159,7 +159,7 @@ public class MapResultService {
     }
 
     private double calculateTowerPush(List<Player> players) {
-        double towerPush = 0;
+        double towerPush = 1;
         for (Player player : players) {
             towerPush *= player.getTeamfightSkill() * player.getWardingSkill() *
                     0.95 + (1.05 - 0.95) * RandomGenerator.getRandomDouble();
@@ -168,10 +168,10 @@ public class MapResultService {
     }
 
     private double calculateRoshan(List<Player> players) {
-        double roshanFight = 0;
+        double roshanFight = 1;
         for (Player player : players) {
             roshanFight *= player.getTeamfightSkill() * player.getMicroSkill() *
-                    0.9 + (1.1 - 0.9) * RandomGenerator.getRandomDouble();
+                    0.95 + (1.05 - 0.95) * RandomGenerator.getRandomDouble();
         }
         return roshanFight;
     }
@@ -192,11 +192,11 @@ public class MapResultService {
     }
 
     private double calculateChanceToOverDraft() {
-        return 0.95 + (1.2 - 0.95) * RandomGenerator.getRandomDouble();
+        return 0.95 + (1 - 0.95) * RandomGenerator.getRandomDouble();
     }
 
     private double calculateChanceToPickBetter() {
-        return 0.95 + (1.05 - 0.95) * RandomGenerator.getRandomDouble();
+        return 0.95 + (1 - 0.95) * RandomGenerator.getRandomDouble();
     }
 
     private double calculateRandomNonsense(List<Player> players) {
