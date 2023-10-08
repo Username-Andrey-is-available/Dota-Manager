@@ -25,7 +25,7 @@ public class MatchResultService {
         this.matchRepository = matchRepository;
     }
 
-    public String getMatchWinner(Long team1Id, Long team2Id, int bestOf) {
+    public Match getMatchWinner(Long team1Id, Long team2Id, int bestOf) {
         Team team1 = teamService.getTeamById(team1Id);
         Team team2 = teamService.getTeamById(team2Id);
 
@@ -59,10 +59,8 @@ public class MatchResultService {
         Team winningTeam;
         if (team1wins > team2wins) {
             winningTeam = team1;
-        } else if (team2wins > team1wins) {
-            winningTeam = team2;
         } else {
-            return "тыдыдыыым надо че-то фиксить " + resultMessage;
+            winningTeam = team2;
         }
 
         Match match = new Match();
@@ -71,7 +69,10 @@ public class MatchResultService {
         match.setWinner(winningTeam);
         matchRepository.save(match);
 
-        return "Победила команда " + winningTeam.getName() + " по количеству выигранных карт " +
-                team1wins + ":" + team2wins + "\n\n" + resultMessage;
+       /* return "Победила команда " + winningTeam.getName() + " по количеству выигранных карт " +
+                team1wins + ":" + team2wins + "\n\n" + resultMessage;*/
+
+        return match;
     }
 }
+
