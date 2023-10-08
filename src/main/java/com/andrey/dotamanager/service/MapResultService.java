@@ -39,11 +39,8 @@ public class MapResultService {
     @Value("${stressResistanceCoefficient}")
     private double stressResistanceCoefficient;
 
-    @Value("${pickStageCoefficient1}")
-    private double pickStageCoefficient1;
-
-    @Value("${pickStageCoefficient2}")
-    private double pickStageCoefficient2;
+    @Value("${pickStageCoefficient}")
+    private double pickStageCoefficient;
 
     @Value("${randomNonsenseCoefficient}")
     private double randomNonsenseCoefficient;
@@ -55,16 +52,16 @@ public class MapResultService {
 
 
     public double calculateMapPoints(Team team, List<Player> players) {
-        return calculateEarlyGame(players) * earlyGameCoefficient *
-                calculateMidGame(players) * midGameCoefficient *
-                calculateLateGame(players) * lateGameCoefficient *
-                calculateTowerDef(players) * towerDefCoefficient *
-                calculateTowerPush(players) * towerPushCoefficient *
-                calculateRoshan(players) * roshanCoefficient *
-                team.calculateTeamWork(players) * teamWorkCoefficient *
-                team.calculateStressResistance(players) * stressResistanceCoefficient *
+        return calculateEarlyGame(players) * earlyGameCoefficient +
+                calculateMidGame(players) * midGameCoefficient +
+                calculateLateGame(players) * lateGameCoefficient +
+                calculateTowerDef(players) * towerDefCoefficient +
+                calculateTowerPush(players) * towerPushCoefficient +
+                calculateRoshan(players) * roshanCoefficient +
+                team.calculateTeamWork(players) * teamWorkCoefficient +
+                team.calculateStressResistance(players) * stressResistanceCoefficient +
                 calculatePickStage(players, calculateChanceToOverDraft(),
-                        calculateChanceToPickBetter()) * pickStageCoefficient1 *
+                        calculateChanceToPickBetter()) * pickStageCoefficient +
                 calculateRandomNonsense(players) * randomNonsenseCoefficient;
     }
 
@@ -75,11 +72,11 @@ public class MapResultService {
     private double calculateHardlane(List<Player> players) {
         Player offlane = null;
         Player support = null;
-        for(Player player : players){
-            if(player.getRole() == Role.OFFLANER){
+        for (Player player : players) {
+            if (player.getRole() == Role.OFFLANER) {
                 offlane = player;
             }
-            if(player.getRole() == Role.SUPPORT){
+            if (player.getRole() == Role.SUPPORT) {
                 support = player;
             }
         }
@@ -152,7 +149,7 @@ public class MapResultService {
         for (Player player : players) {
             if (player.getRole() != Role.CARRY) {
                 towerDef *= player.getTeamfightSkill() * player.getWardingSkill() *
-                        0.95 + (1.05 - 0.95) * RandomGenerator.getRandomDouble();
+                        0.85 + (1.05 - 0.85) * RandomGenerator.getRandomDouble();
             }
         }
         return towerDef;
@@ -162,7 +159,7 @@ public class MapResultService {
         double towerPush = 1;
         for (Player player : players) {
             towerPush *= player.getTeamfightSkill() * player.getWardingSkill() *
-                    0.95 + (1.05 - 0.95) * RandomGenerator.getRandomDouble();
+                    0.85 + (1.05 - 0.85) * RandomGenerator.getRandomDouble();
         }
         return towerPush;
     }
@@ -171,7 +168,7 @@ public class MapResultService {
         double roshanFight = 1;
         for (Player player : players) {
             roshanFight *= player.getTeamfightSkill() * player.getMicroSkill() *
-                    0.95 + (1.05 - 0.95) * RandomGenerator.getRandomDouble();
+                    0.75 + (1.05 - 0.75) * RandomGenerator.getRandomDouble();
         }
         return roshanFight;
     }
