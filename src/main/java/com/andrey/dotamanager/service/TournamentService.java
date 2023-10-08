@@ -4,12 +4,14 @@ import com.andrey.dotamanager.model.Team;
 import com.andrey.dotamanager.model.Tournament;
 import com.andrey.dotamanager.repository.TeamRepository;
 import com.andrey.dotamanager.repository.TournamentRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class TournamentService {
     private final TournamentRepository tournamentRepository;
     private final TeamRepository teamRepository;

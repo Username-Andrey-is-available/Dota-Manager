@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Transactional
 public class TeamService {
     private final TeamRepository teamRepository;
     private final TournamentService tournamentService;
@@ -35,7 +36,6 @@ public class TeamService {
         return teamRepository.findAll();
     }
 
-    @Transactional
     public Team getTeamById(Long id) {
         return teamRepository.findById(id).orElse(null);
     }
