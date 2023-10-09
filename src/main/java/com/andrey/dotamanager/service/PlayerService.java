@@ -3,6 +3,7 @@ package com.andrey.dotamanager.service;
 import com.andrey.dotamanager.model.Player;
 import com.andrey.dotamanager.repository.PlayerRepository;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,14 +11,10 @@ import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class PlayerService {
 
     private final PlayerRepository playerRepository;
-
-    @Autowired
-    public PlayerService(PlayerRepository playerRepository) {
-        this.playerRepository = playerRepository;
-    }
 
     public List<Player> getPlayersByTeamId(Long teamId) {
         return playerRepository.findByTeamId(teamId);

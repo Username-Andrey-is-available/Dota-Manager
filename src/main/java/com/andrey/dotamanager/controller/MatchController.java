@@ -1,10 +1,11 @@
 package com.andrey.dotamanager.controller;
 
 import com.andrey.dotamanager.model.Match;
-import com.andrey.dotamanager.repository.MatchRepository;
+import com.andrey.dotamanager.model.Team;
+import com.andrey.dotamanager.service.MapResultService;
 import com.andrey.dotamanager.service.MatchResultService;
 import com.andrey.dotamanager.service.TeamService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,21 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/match")
+@RequiredArgsConstructor
 public class MatchController {
 
-    private final TeamService teamService;
     private final MatchResultService matchResultService;
-    private final MatchRepository matchRepository;
+    private final MapResultService mapResultService;
+    private final TeamService teamService;
 
-
-    @Autowired
-    public MatchController(TeamService teamService, MatchResultService matchResultService,
-                           MatchRepository matchRepository) {
-        this.teamService = teamService;
-        this.matchResultService = matchResultService;
-        this.matchRepository = matchRepository;
-
-    }
 
     @GetMapping("/winner")
     public ResponseEntity<Match> getMatchWinner(
@@ -40,6 +33,11 @@ public class MatchController {
         return new ResponseEntity<>(match, HttpStatus.OK);
     }
 
+    @GetMapping("/showMatchPointsForTeam")
+    public Double showMatchPointsForTeam(@RequestParam Long teamId) {
+        Team team = teamService.getTeamById(teamId);
+        return mapResultService.calculateMapPoints(team, team.getPlayers());
+    }
 }
 
 

@@ -2,20 +2,16 @@ package com.andrey.dotamanager.controller;
 
 import com.andrey.dotamanager.model.Tournament;
 import com.andrey.dotamanager.service.TournamentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/tournaments")
+@RequiredArgsConstructor
 public class TournamentController {
     private final TournamentService tournamentService;
-
-    @Autowired
-    public TournamentController(TournamentService tournamentService) {
-        this.tournamentService = tournamentService;
-    }
 
     // Создание нового турнира
     @PostMapping("/create")

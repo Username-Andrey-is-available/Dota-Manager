@@ -4,7 +4,7 @@ import com.andrey.dotamanager.model.Player;
 import com.andrey.dotamanager.model.Team;
 import com.andrey.dotamanager.service.PlayerService;
 import com.andrey.dotamanager.service.TeamService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,15 +13,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/players")
+@RequiredArgsConstructor
 public class PlayerController {
     private final PlayerService playerService;
     private final TeamService teamService;
-
-    @Autowired
-    public PlayerController(PlayerService playerService, TeamService teamService) {
-        this.playerService = playerService;
-        this.teamService = teamService;
-    }
 
     @GetMapping("/all")
     public List<Player> getAllPlayers() {

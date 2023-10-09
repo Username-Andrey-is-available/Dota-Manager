@@ -4,23 +4,18 @@ import com.andrey.dotamanager.model.Player;
 import com.andrey.dotamanager.model.Team;
 import com.andrey.dotamanager.service.PlayerService;
 import com.andrey.dotamanager.service.TeamService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/teams")
+@RequiredArgsConstructor
 public class TeamController {
     private final TeamService teamService;
     private final PlayerService playerService;
 
-
-    @Autowired
-    public TeamController(TeamService teamService, PlayerService playerService) {
-        this.teamService = teamService;
-        this.playerService = playerService;
-    }
 
     @GetMapping(value = "/players/by-team", produces = "application/json")
     public List<Player> getPlayersByTeamId(@RequestParam Long teamId) {

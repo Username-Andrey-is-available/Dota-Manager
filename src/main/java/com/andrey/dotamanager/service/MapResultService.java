@@ -1,7 +1,7 @@
 package com.andrey.dotamanager.service;
 
 import com.andrey.dotamanager.model.Player;
-import com.andrey.dotamanager.model.Role;
+import com.andrey.dotamanager.model.PlayerRole;
 import com.andrey.dotamanager.model.Team;
 import com.andrey.dotamanager.util.RandomGenerator;
 import org.springframework.beans.factory.annotation.Value;
@@ -73,10 +73,10 @@ public class MapResultService {
         Player offlane = null;
         Player support = null;
         for (Player player : players) {
-            if (player.getRole() == Role.OFFLANER) {
+            if (player.getPlayerRole() == PlayerRole.OFFLANER) {
                 offlane = player;
             }
-            if (player.getRole() == Role.SUPPORT) {
+            if (player.getPlayerRole() == PlayerRole.SUPPORT) {
                 support = player;
             }
         }
@@ -91,10 +91,10 @@ public class MapResultService {
         Player mider = null;
         Player support = null;
         for (Player player : players) {
-            if (player.getRole() == Role.MIDER) {
+            if (player.getPlayerRole() == PlayerRole.MIDER) {
                 mider = player;
             }
-            if (player.getRole() == Role.SUPPORT) {
+            if (player.getPlayerRole() == PlayerRole.SUPPORT) {
                 support = player;
             }
         }
@@ -109,10 +109,10 @@ public class MapResultService {
         Player carry = null;
         Player hardsupport = null;
         for (Player player : players) {
-            if (player.getRole() == Role.CARRY) {
+            if (player.getPlayerRole() == PlayerRole.CARRY) {
                 carry = player;
             }
-            if (player.getRole() == Role.HARDSUPPORT) {
+            if (player.getPlayerRole() == PlayerRole.HARDSUPPORT) {
                 hardsupport = player;
             }
         }
@@ -147,7 +147,7 @@ public class MapResultService {
     private double calculateTowerDef(List<Player> players) {
         double towerDef = 1;
         for (Player player : players) {
-            if (player.getRole() != Role.CARRY) {
+            if (player.getPlayerRole() != PlayerRole.CARRY) {
                 towerDef *= player.getTeamfightSkill() * player.getWardingSkill() *
                         0.85 + (1.05 - 0.85) * RandomGenerator.getRandomDouble();
             }
@@ -177,7 +177,7 @@ public class MapResultService {
         Player mider = null;
         Player captain = null;
         for (Player player : players) {
-            if (player.getRole() == Role.MIDER) {
+            if (player.getPlayerRole() == PlayerRole.MIDER) {
                 mider = player;
             }
             if (player.isCaptain()) {
