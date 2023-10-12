@@ -26,9 +26,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    /*implementation("org.springframework.boot:spring-boot-starter-security:3.1.4")*/
     implementation("com.mysql:mysql-connector-j:8.1.0")
     implementation("org.springframework:spring-tx:6.0.12")
+    implementation("org.apache.commons:commons-lang3:3.13.0")
     compileOnly("org.projectlombok:lombok:1.18.24")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     annotationProcessor("org.projectlombok:lombok:1.18.24")

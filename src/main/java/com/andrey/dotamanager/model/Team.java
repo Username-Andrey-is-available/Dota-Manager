@@ -19,6 +19,12 @@ public class Team {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "team", cascade = CascadeType.ALL)
     private List<Player> players;
 
+
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "winner", cascade = CascadeType.ALL)
+    private List<Match> wonMatches;
+
+
     private int fans;
     private int teamWl;
     private int teamSkill;

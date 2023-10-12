@@ -4,6 +4,8 @@ import com.andrey.dotamanager.model.Match;
 import com.andrey.dotamanager.model.Player;
 import com.andrey.dotamanager.model.Team;
 import com.andrey.dotamanager.repository.MatchRepository;
+import com.andrey.dotamanager.repository.TeamRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +13,15 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class MatchResultService {
+public class MatchService {
 
     private final TeamService teamService;
     private final MapResultService mapResultService;
     private final MatchRepository matchRepository;
+    private final TeamRepository teamRepository;
 
 
-    public Match getMatchWinner(Long team1Id, Long team2Id, int bestOf) {
+    public Match createMatch(Long team1Id, Long team2Id, int bestOf) {
         Team team1 = teamService.getTeamById(team1Id);
         Team team2 = teamService.getTeamById(team2Id);
 
@@ -53,6 +56,17 @@ public class MatchResultService {
         matchRepository.save(match);
 
         return match;
+    }
+
+    public Match getMatchById(Long matchId) {
+        return matchRepository.findById(matchId).orElseThrow(() ->
+                new EntityNotFoundException("нет матча по такому id"));
+    }
+
+    public Team getMatchWinnerById(Long matchId) {
+        Match match = matchRepository.findById(matchId).orElseThrow(EntityNotFoundException::new);
+        return teamRepository.findTeamByWonMatchesContaining(match)
+                .orElseThrow(() -> new EntityNotFoundException("нет победителя матча по такому id матча"));
     }
 }
 

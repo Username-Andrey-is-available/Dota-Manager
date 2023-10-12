@@ -14,12 +14,12 @@ public class Tournament {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String tournamentName;   // Название турнира
-    private String country;          // Название страны проведения турнира
-    private Date startDate;          // Дата начала турнира
-    private Date endDate;            // Дата окончания турнира
-    private int numberOfTeams; // Количество команд на турнире
-    private double prizePool;  // Призовой фонд турнира
+    private String tournamentName;
+    private String country;
+    private Date startDate;
+    private Date endDate;
+    private int numberOfTeams;
+    private double prizePool;
 
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -28,7 +28,7 @@ public class Tournament {
             joinColumns = @JoinColumn(name = "tournament_id"),
             inverseJoinColumns = @JoinColumn(name = "team_id")
     )
-    @Column(name = "team_ids") // Имя колонки для айдишников команд
+    @Column(name = "team_ids")
     private Set<Team> teams = new HashSet<>();
 
 }

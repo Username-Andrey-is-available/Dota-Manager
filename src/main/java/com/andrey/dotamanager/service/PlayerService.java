@@ -2,9 +2,9 @@ package com.andrey.dotamanager.service;
 
 import com.andrey.dotamanager.model.Player;
 import com.andrey.dotamanager.repository.PlayerRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +26,8 @@ public class PlayerService {
     }
 
     public Player getPlayerById(Long id) {
-        return playerRepository.findById(id).orElse(null);
+        return playerRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("нет игрока по такому id"));
     }
 
     public void savePlayer(Player player) {
@@ -38,12 +39,4 @@ public class PlayerService {
     }
 
 
-    public Player getPlayerByNickname(String nickname) {
-
-        return playerRepository.findByNickname(nickname);
-    }
-
-    public void updatePlayer(Player player) {
-        playerRepository.save(player);
-    }
 }

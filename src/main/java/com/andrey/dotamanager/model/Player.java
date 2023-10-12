@@ -42,11 +42,4 @@ public class Player {
     private double skill;
 
 
-    public double calculateSkill(double heroPickSkill, double laningSkill, double farmSkill,
-                                 double TeamfightSkill, double wardingSkill, double microSkill, double macroSkill) {
-        return (heroPickSkill + laningSkill + farmSkill + teamfightSkill + wardingSkill + microSkill) / 12
-                + macroSkill / 2;
-    }
-
-
 }

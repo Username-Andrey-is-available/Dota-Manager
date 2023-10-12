@@ -3,34 +3,41 @@ package com.andrey.dotamanager.controller;
 import com.andrey.dotamanager.model.Match;
 import com.andrey.dotamanager.model.Team;
 import com.andrey.dotamanager.service.MapResultService;
-import com.andrey.dotamanager.service.MatchResultService;
+import com.andrey.dotamanager.service.MatchService;
 import com.andrey.dotamanager.service.TeamService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/match")
+@RequestMapping("/matches")
 @RequiredArgsConstructor
 public class MatchController {
 
-    private final MatchResultService matchResultService;
+    private final MatchService matchService;
     private final MapResultService mapResultService;
     private final TeamService teamService;
 
 
-    @GetMapping("/winner")
-    public ResponseEntity<Match> getMatchWinner(
+    @PostMapping
+    public ResponseEntity<Match> createMatch(
             @RequestParam Long team1Id,
             @RequestParam Long team2Id,
             @RequestParam int bestOf
     ) {
-        Match match = matchResultService.getMatchWinner(team1Id, team2Id, bestOf);
-        return new ResponseEntity<>(match, HttpStatus.OK);
+        Match match = matchService.createMatch(team1Id, team2Id, bestOf);
+        return ResponseEntity.ok(match);
+    }
+
+
+    @GetMapping("/{matchId}")
+    public ResponseEntity<Match> getMatch(@PathVariable Long matchId) {
+        return ResponseEntity.ok(matchService.getMatchById(matchId));
+    }
+
+    @GetMapping("/{matchId}/winner")
+    public ResponseEntity<Team> getMatchWinner(@PathVariable Long matchId) {
+        return ResponseEntity.ok(matchService.getMatchWinnerById(matchId));
     }
 
     @GetMapping("/showMatchPointsForTeam")

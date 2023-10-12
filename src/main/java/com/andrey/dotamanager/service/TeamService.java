@@ -3,10 +3,9 @@ package com.andrey.dotamanager.service;
 import com.andrey.dotamanager.model.Player;
 import com.andrey.dotamanager.model.Team;
 import com.andrey.dotamanager.repository.TeamRepository;
-import com.andrey.dotamanager.repository.TournamentRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,14 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TeamService {
     private final TeamRepository teamRepository;
-    private final TournamentService tournamentService;
 
-    @Autowired
-    public TeamService(TeamRepository teamRepository, TournamentRepository tournamentRepository,
-                       TournamentService tournamentService) {
-        this.teamRepository = teamRepository;
-        this.tournamentService = tournamentService;
-    }
 
     public Team createTeam(String name, double budget, String country, int fans) {
         Team team = new Team();
@@ -39,16 +31,16 @@ public class TeamService {
     }
 
     public Team getTeamById(Long id) {
-        return teamRepository.findById(id).orElse(null);
+        return teamRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("нет команды по такому id"));
     }
 
     public void deleteTeam(Long id) {
-        Team team = teamRepository.getTeamById(id);
-        if (team != null) {
-            List<Player> players = team.getPlayers();
-            for (Player player : players) {
-                player.setTeam(null);
-            }
+        Team team = teamRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("для удаления нет команды по такому id"));
+        List<Player> players = team.getPlayers();
+        for (Player player : players) {
+            player.setTeam(null);
         }
         teamRepository.deleteById(id);
     }

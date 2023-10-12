@@ -10,5 +10,4 @@ public class Role {
     @Id
     private Long id;
     private String name;
-    // Другие поля и методы
 }

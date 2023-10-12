@@ -13,31 +13,26 @@ import java.util.List;
 public class TournamentController {
     private final TournamentService tournamentService;
 
-    // Создание нового турнира
     @PostMapping("/create")
     public Tournament createTournament(@RequestBody Tournament tournament) {
         return tournamentService.createTournament(tournament);
     }
 
-    // Получение списка всех турниров
-    @GetMapping("/all")
+    @GetMapping
     public List<Tournament> getAllTournaments() {
         return tournamentService.getAllTournaments();
     }
 
-    // Получение информации о конкретном турнире по его ID
     @GetMapping("/{id}")
     public Tournament getTournamentById(@PathVariable Long id) {
         return tournamentService.getTournamentById(id);
     }
 
-    // Изменение информации о турнире
     @PutMapping("/{id}")
-    public Tournament updateTournament(@PathVariable Long id, @RequestBody Tournament updatedTournament) {
-        return tournamentService.updateTournament(id, updatedTournament);
+    public void updateTournament(@PathVariable Long id, @RequestBody Tournament updatedTournament) {
+        tournamentService.updateTournament(id, updatedTournament);
     }
 
-    // Удаление турнира по его ID
     @DeleteMapping("/{id}")
     public void deleteTournament(@PathVariable Long id) {
         tournamentService.deleteTournament(id);

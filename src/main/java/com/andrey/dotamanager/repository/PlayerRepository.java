@@ -10,6 +10,5 @@ import java.util.List;
 public interface PlayerRepository extends JpaRepository<Player, Long> {
     List<Player> findByTeamId(Long teamId);
 
-    Player findByNickname(String nickname);
 }
 
