@@ -47,7 +47,7 @@ public class TournamentController {
         return null;
     }
 
-    @DeleteMapping("/{tournamentId}/delete-team/{teamId}")
+    @DeleteMapping("/{tournamentId}/remove-team/{teamId}")
     public void removeTeamFromTournament(
             @PathVariable Long tournamentId,
             @PathVariable Long teamId

@@ -29,9 +29,13 @@ dependencies {
     implementation("com.mysql:mysql-connector-j:8.1.0")
     implementation("org.springframework:spring-tx:6.0.12")
     implementation("org.apache.commons:commons-lang3:3.13.0")
+    implementation ("org.mapstruct:mapstruct:1.5.5.Final")
+    implementation("org.mapstruct:mapstruct-processor:1.5.5.Final")
+
     compileOnly("org.projectlombok:lombok:1.18.24")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     annotationProcessor("org.projectlombok:lombok:1.18.24")
+    annotationProcessor ("org.mapstruct:mapstruct-processor:1.5.5.Final")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

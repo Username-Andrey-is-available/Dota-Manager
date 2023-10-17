@@ -2,10 +2,12 @@ package com.andrey.dotamanager.service;
 
 import com.andrey.dotamanager.model.Player;
 import com.andrey.dotamanager.model.Team;
+import com.andrey.dotamanager.model.TeamDTO;
 import com.andrey.dotamanager.repository.TeamRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TeamService {
     private final TeamRepository teamRepository;
+    private final TeamMapper teamMapper = Mappers.getMapper(TeamMapper.class);
 
 
     public Team createTeam(String name, double budget, String country, int fans) {
@@ -30,9 +33,19 @@ public class TeamService {
         return teamRepository.findAll();
     }
 
+    public List<TeamDTO> getAllTeamsDTO() {
+        List<Team> teams = getAllTeams();
+        return teamMapper.teamsToTeamsDTOs(teams);
+    }
+
     public Team getTeamById(Long id) {
         return teamRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException("нет команды по такому id"));
+    }
+
+    public TeamDTO getTeamDTO(Long id) {
+        Team team = getTeamById(id);
+        return teamMapper.teamToTeamDTO(team);
     }
 
     public void deleteTeam(Long id) {
