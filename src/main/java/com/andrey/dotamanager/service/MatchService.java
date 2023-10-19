@@ -1,6 +1,7 @@
 package com.andrey.dotamanager.service;
 
 import com.andrey.dotamanager.model.Match;
+import com.andrey.dotamanager.model.MatchDTO;
 import com.andrey.dotamanager.model.Player;
 import com.andrey.dotamanager.model.Team;
 import com.andrey.dotamanager.repository.MatchRepository;
@@ -19,9 +20,9 @@ public class MatchService {
     private final MapResultService mapResultService;
     private final MatchRepository matchRepository;
     private final TeamRepository teamRepository;
+    private final MatchMapper matchMapper;
 
-
-    public Match createMatch(Long team1Id, Long team2Id, int bestOf) {
+    public MatchDTO createMatch(Long team1Id, Long team2Id, int bestOf) {
         Team team1 = teamService.getTeamById(team1Id);
         Team team2 = teamService.getTeamById(team2Id);
 
@@ -55,18 +56,31 @@ public class MatchService {
         match.setWinner(winningTeam);
         matchRepository.save(match);
 
-        return match;
+        return getMatchDTO(match);
     }
 
-    public Match getMatchById(Long matchId) {
-        return matchRepository.findById(matchId).orElseThrow(() ->
-                new EntityNotFoundException("нет матча по такому id"));
+    public MatchDTO getMatchById(Long matchId) {
+        return getMatchDTO(matchRepository.findById(matchId).orElseThrow(() ->
+                new EntityNotFoundException("нет матча по такому id")));
     }
 
     public Team getMatchWinnerById(Long matchId) {
         Match match = matchRepository.findById(matchId).orElseThrow(EntityNotFoundException::new);
         return teamRepository.findTeamByWonMatchesContaining(match)
                 .orElseThrow(() -> new EntityNotFoundException("нет победителя матча по такому id матча"));
+    }
+
+    public MatchDTO getMatchDTO(Match match) {
+        return matchMapper.matchToMatchDTO(match);
+    }
+
+    public List<MatchDTO> getAllMatchesDTO() {
+        List<Match> matches = getAllMatches();
+        return matchMapper.matchesToMatchesDTO(matches);
+    }
+
+    private List<Match> getAllMatches() {
+        return matchRepository.findAll();
     }
 }
 

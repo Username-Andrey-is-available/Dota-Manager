@@ -8,9 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-/**
- * Глобальный обработчик ошибок для контроллеров.
- */
 @ControllerAdvice
 @Slf4j
 public class ErrorHandler {
@@ -21,7 +18,6 @@ public class ErrorHandler {
         log.error(ExceptionUtils.getStackTrace(ex));
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseBody);
     }
-
 
 
     @ExceptionHandler(Exception.class)
